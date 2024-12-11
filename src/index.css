@@ -1,0 +1,49 @@
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  user-select: none;
+  overflow: hidden;
+}
+
+.pointer {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 30px;
+  color: #fff;
+  opacity: 6;
+}
+
+.texture-selector {
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 9999;
+  width: 300px;
+  display: flex;
+  background-color: rgb(180, 180, 180);
+  padding: 2px;
+  border: 1px solid #000;
+  gap: 8px;
+
+  img {
+    width: 100%;
+    image-rendering: pixelated;
+    box-sizing: content-box;
+    border: 2px solid transparent;
+
+    &.Active {
+      border: 2px solid #5a5a5a;
+    }
+  }
+}
