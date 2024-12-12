@@ -1,20 +1,28 @@
 import { create } from "zustand";
 
-export const useStore = create((set) => ({
+const getLocalStorage = (key: string) => {
+  try {
+    const item = localStorage.getItem(key);
+    return item ? JSON.parse(item) : null;
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+};
+
+const setLocalStorage = (key: string, value: any) => {
+  try {
+    localStorage.setItem(key, JSON.stringify(value));
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+};
+
+export const useStore = create((set, get) => ({
   texture: "dirt",
   setTexture: (texture) => set(() => ({ texture })),
-  cubes: [
-    {
-      id: crypto.randomUUID(),
-      texture: "dirt",
-      pos: [1, -0.5, 1],
-    },
-    {
-      id: crypto.randomUUID(),
-      texture: "glass",
-      pos: [2, 2, 2],
-    }
-  ],
+  cubes: getLocalStorage("cubes") || [], // Obtiene el array de cubes guardado en localStorage
   addCube: (x, y, z) =>
     set((state) => ({
       cubes: [...state.cubes, {
@@ -28,10 +36,11 @@ export const useStore = create((set) => ({
       cubes: state.cubes.filter((cube) => cube.id !== id), // Filtra el array
     })),
   saveWorld: () => {
-    console.log("World saved!");
+    setLocalStorage("cubes", get().cubes); // Guarda el array en localStorage
   },
-  resetWorld: () =>
+  resetWorld: () => {
     set(() => ({
-      cubes: [], // Reinicia a un array vacío
-    })),
+      cubes: [],
+    }));
+  },
 }));

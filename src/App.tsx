@@ -6,11 +6,13 @@ import { FPV } from "./components/FPV.js"
 import { Player } from "./components/Player.js"
 import { Cubes } from "./components/Cubes.js"
 import { TextureSelect } from "./components/TextureSelect.js"
+import { Menu } from "./components/Menu.js"
 
 function App() {
   return (
     <>
       <TextureSelect />
+      <Menu />
       <Canvas>
         <Sky sunPosition={[10, 10, 10]} />
         <ambientLight intensity={1} />
